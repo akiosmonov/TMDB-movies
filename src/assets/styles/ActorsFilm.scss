@@ -1,0 +1,30 @@
+#actorsFilm {
+  .actorsFilm {
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    overflow-x: scroll;
+    &--card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 430px;
+      height: 290px;
+
+      img {
+      position: relative;
+        width: 135px;
+        height: 200px;
+        border-radius: 7px;
+      }
+      h5 {
+        height: 50px;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+}

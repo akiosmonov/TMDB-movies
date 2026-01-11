@@ -1,0 +1,114 @@
+$tablet: 992px;
+$mobile: 768px;
+$mobile-small: 600px;
+$small-mobile: 480px;
+
+@mixin media($size) {
+  @media (max-width: $size) {
+    @content;
+  }
+}
+
+#actorDet {
+  padding: 40px 0;
+
+  .actorDet {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    @include media($tablet) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    &__img {
+      flex-shrink: 0;
+      img {
+        border-radius: 10px;
+        width: 300px;
+        height: auto;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+    }
+    &__tittle {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+
+      h1 {
+        font-size: clamp(28px, 5vw, 40px);
+        font-weight: 800;
+        margin: 0;
+      }
+      &--knows {
+        margin-top: 30px;
+        width: 100%;
+
+        h4 {
+          margin-bottom: 15px;
+          font-weight: 700;
+          font-size: 24px;
+        }
+      }
+      &--beography {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width: 1000px;
+        h3 {
+          color: black;
+          font-size: 22px;
+          font-weight: 700;
+        }
+        h4 {
+          font-size: 16px;
+          line-height: 1.6;
+          font-weight: 400;
+          span {
+            display: inline-flex;
+            font-weight: 800;
+            color: #06b4e4;
+            cursor: pointer;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+  .personInfo {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    flex-direction: column;
+    display: flex;
+
+    @include media($tablet) {
+      align-items: center;
+      text-align: center;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    &--item {
+      margin: 15px 0;
+      h4 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      p {
+        color: #333;
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
+  }
+}

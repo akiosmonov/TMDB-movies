@@ -1,0 +1,26 @@
+#videos {
+  .videos {
+    display: flex;
+    overflow-x: auto;
+    justify-content: center;
+    padding-bottom: 20px;
+
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    &::-webkit-slider-thumb {
+      background: #e50914;
+      border-radius: 10px;
+    }
+
+    &--card {
+      flex-shrink: 0;
+
+      iframe {
+        border-radius: 10px;
+        border: none;
+      }
+    }
+  }
+}
