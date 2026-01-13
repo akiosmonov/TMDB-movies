@@ -86,9 +86,9 @@ const Hero = () => {
                   value={movieName}
                   onChange={intChange}
                 />
-                <a className="" onClick={() => searchMovie()}>
+                <button  onClick={() => searchMovie()}>
                   Поиск
-                </a>
+                </button>
               </div>
             </div>
           </div>

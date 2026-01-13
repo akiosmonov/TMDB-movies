@@ -40,7 +40,7 @@ $small-mobile: 480px;
     &--nav {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 25px;
 
       @include media(1200px) {
         order: 1;
@@ -57,6 +57,35 @@ $small-mobile: 480px;
         color: white;
         font-size: 20px;
         text-decoration: none;
+        font-weight: 500;
+        position: relative;
+        padding: 5px 0;
+        transition: color 0.3s ease;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: #01d4e4;
+          transition: width 0.3s ease;
+        }
+
+        &:hover {
+          color: #01d4e4;
+          &::after {
+            width: 100%;
+          }
+        }
+
+        &.active {
+          color: #01d4e4;
+          &::after {
+            width: 100%;
+          }
+        }
 
         @include media($mobile-small) {
           font-size: 16px;
@@ -189,7 +218,6 @@ $small-mobile: 480px;
           font-weight: 900;
           color: #01d4e4;
           text-decoration: none;
-          
 
           @include media(1200px) {
             font-size: 30px;
