@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api_key } from "../../API";
 import axios from "axios";
 import ActorsFilms from "../ActorsFilms";
+import { DarkContext } from "../Context";
 
 const ActorDetails = () => {
   const [actorDetails, setActorDetails] = useState({});
   const { actorId } = useParams();
   const [bio, setBio] = useState(200);
+  const { language } = useContext(DarkContext);
 
   async function getActorsDetails(key) {
     let res = await axios(
-      `https://api.themoviedb.org/3/person/${actorId}?api_key=${key}&language=en-US`
+      `https://api.themoviedb.org/3/person/${actorId}?api_key=${key}&language=${language}`
     );
     let { data } = res;
     setActorDetails(data);
@@ -19,7 +21,7 @@ const ActorDetails = () => {
 
   useEffect(() => {
     getActorsDetails(api_key);
-  }, [actorId]);
+  }, [actorId, language]);
 
   const {
     also_known_as,
@@ -56,17 +58,40 @@ const ActorDetails = () => {
             <div className="actorDet__tittle--beography">
               <h3>Биография</h3>
               <h4>
-                {biography?.slice(0, bio)} {!isExpanded && fullBio && "..."}
-                {fullBio && (
-                  <span onClick={sliceText}>
-                    {isExpanded ? "Свернуть" : "Читать еще..."}
+                {biography && biography.length > 0 ? (
+                  <>
+                    {biography.slice(0, bio)}
+                    {!isExpanded && fullBio && "..."}
+                    {fullBio && (
+                      <span
+                        onClick={sliceText}
+                        style={{
+                          color: "#01b4e4",
+                          cursor: "pointer",
+                          marginLeft: "8px",
+                        }}
+                      >
+                        {isExpanded ? "Свернуть" : "Читать еще..."}
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <span
+                    style={{
+                      color: "gray",
+                      fontStyle: "italic",
+                      fontSize: "16px",
+                    }}
+                  >
+                    К сожалению, биография на данном языке пока не добавлена.
+                    Попробуйте переключить язык на английский.
                   </span>
                 )}
               </h4>
             </div>
             <div className="actorDet__tittle--knows">
               <h4>Известность за</h4>
-              <ActorsFilms filmsId={actorId}/>
+              <ActorsFilms filmsId={actorId} />
             </div>
           </div>
         </div>

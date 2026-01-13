@@ -182,7 +182,7 @@ const MovieDetails = () => {
                     </a>
                   </div>
                 </div>
-                <div className="detailsCard--detail__overvive">
+                <div className="detailsCard--detail__overview">
                   <h3>
                     <i>{details.tagline}</i>
                   </h3>

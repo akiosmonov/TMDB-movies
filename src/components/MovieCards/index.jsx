@@ -12,7 +12,7 @@ const MovieCards = ({ el }) => {
     ndT && !isExpanded ? title.slice(0, initialLength) + "..." : title;
 
   const toggleTitle = (e) => {
-    e.preventDefalt();
+    e.preventDefault();
     setIsExpanded(!isExpanded);
   };
   const ratingValue = el.vote_average * 10;

@@ -6,10 +6,10 @@ import { DarkContext } from "../Context";
 
 const Actors = ({ kinoId }) => {
   const [actors, setActors] = useState([]);
-  const { dark } = useContext(DarkContext);
+  const { dark, language } = useContext(DarkContext);
   const getActors = async (key) => {
     let res = await axios(
-      `https://api.themoviedb.org/3/movie/${kinoId}/credits?api_key=${key}&language=en-US`
+      `https://api.themoviedb.org/3/movie/${kinoId}/credits?api_key=${key}&language=${language}`
     );
     let { data } = res;
     setActors(data.cast);
@@ -17,7 +17,7 @@ const Actors = ({ kinoId }) => {
 
   useEffect(() => {
     getActors(api_key);
-  }, [kinoId]);
+  }, [kinoId, language]);
 
   const textStyle = {
     color: dark ? "black" : "white",

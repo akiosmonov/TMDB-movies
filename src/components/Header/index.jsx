@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import logo from "../../assets/images/blue-92.svg";
-import { CiSearch } from "react-icons/ci";
+import { IoMdSearch } from "react-icons/io";
+
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MdOutlineNightlightRound } from "react-icons/md";
 import { FaSun } from "react-icons/fa";
@@ -55,13 +56,12 @@ const Header = () => {
               <input
                 onChange={intChange}
                 value={movieName}
-                className="int"
                 type="text"
                 placeholder="Найти фильм, сериал.."
                 onKeyDown={handleKey}
               />
               <a onClick={() => SearchMovie()}>
-                <CiSearch />
+                <IoMdSearch />
               </a>
             </div>
           </div>

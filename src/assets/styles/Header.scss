@@ -11,8 +11,10 @@ $small-mobile: 480px;
 
 #header {
   padding: 30px 0;
-  background-color: #032541;
   position: relative;
+  background: rgba(3, 37, 65, 0.8);
+  position: sticky;
+  z-index: 1000;
 
   @include media($mobile) {
     padding: 15px 10px;
@@ -76,7 +78,8 @@ $small-mobile: 480px;
       transition: transform 0.3s ease;
 
       &:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
+        filter: brightness(1.1);
       }
 
       @include media(1200px) {
@@ -138,15 +141,30 @@ $small-mobile: 480px;
 
       .form {
         position: relative;
+        display: flex;
+        align-items: center;
 
-        .int {
-          font-size: 22px;
+        input {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(5px);
+          border-radius: 30px;
+          padding: 10px 45px 10px 20px;
           color: white;
-          background: transparent;
-          border-bottom: 2px solid white;
-          outline: none;
-          padding: 5px 40px 5px 5px;
-          width: 300px;
+          font-size: 16px;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          width: 240px;
+
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+          }
+          &:focus {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #01d4e4;
+            box-shadow: 0 0 15px rgba(1, 212, 228, 0.2);
+            outline: none;
+          }
 
           @include media(1200px) {
             width: 100%;
@@ -160,20 +178,18 @@ $small-mobile: 480px;
           @include media($small-mobile) {
             width: 40%;
           }
-
-          &::placeholder {
-            color: rgba(255, 255, 255, 0.54);
-          }
         }
 
         a {
           position: absolute;
           right: 5px;
-          top: 50%;
+          top: 55%;
           transform: translateY(-50%);
-          font-size: 24px;
-          color: white;
+          font-size: 30px;
+          font-weight: 900;
+          color: #01d4e4;
           text-decoration: none;
+          
 
           @include media(1200px) {
             font-size: 30px;
