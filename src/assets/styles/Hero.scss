@@ -6,7 +6,7 @@
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -112,19 +112,35 @@
     gap: 20px;
     overflow-x: auto;
     padding: 20px;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 5%,
+      black 90%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 5%,
+      black 90%,
+      transparent 100%
+    );
 
     &::-webkit-scrollbar {
-      height: 8px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: rgba(1, 212, 228, 0.5);
-      border-radius: 10px;
+      display: none; 
     }
 
     &--block {
       flex: 0 0 150px;
       width: 150px;
+      transition: git  0.3s ease;
+
+      &:hover {
+        transform: translateY(-10px);
+      }
 
       &__image img {
         width: 100%;
