@@ -86,9 +86,7 @@ const Hero = () => {
                   value={movieName}
                   onChange={intChange}
                 />
-                <button  onClick={() => searchMovie()}>
-                  Поиск
-                </button>
+                <button onClick={() => searchMovie()}>Поиск</button>
               </div>
             </div>
           </div>
@@ -109,9 +107,9 @@ const Hero = () => {
                   </Link>
                   <div className="popInHero--block__title">
                     <Link to={`/movieDetails/${el.id}`}>
-                      <h1 style={textStyle}>{el.title}</h1>
+                      <h1>{el.title}</h1>
                     </Link>
-                    <p style={textStyle}>{el.release_date}</p>
+                    <p>{el.release_date}</p>
                   </div>
                 </div>
               </div>

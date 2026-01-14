@@ -14,22 +14,35 @@ import { MdBookmarkAdded } from "react-icons/md";
 const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const passedRating = location.state?.rating;
   const { dark, language, favorite, setFavorite } = useContext(DarkContext);
   const videoRef = useRef(null);
+  const [videoKey, setVideoKey] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [details, setDetails] = useState(null);
   async function getMovieDetails(key) {
     let res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${key}&language=${language}&append_to_response=releases`
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${key}&language=${language}&append_to_response=videos`
     );
-    let { data } = res;
-    setDetails(data);
+    setDetails(res.data);
+    console.log(res.data);
+
+    const trailer =
+      res.data.videos.results.find((v) => v.type === "Trailer") ||
+      res.data.videos.results[0];
+    if (trailer) setVideoKey(trailer.key);
+    console.log(trailer);
   }
 
   useEffect(() => {
     getMovieDetails(api_key);
-  }, [language]);
+  }, [language, movieId]);
+
+  const toggleTrailer = (e) => {
+    e.preventDefault();
+    if (videoKey) setIsModalOpen(true);
+    else alert("Трейлер не найден");
+  };
 
   if (!details) {
     return <div className="loading-state">Загрузка деталей фильма...</div>;
@@ -48,33 +61,11 @@ const MovieDetails = () => {
     ? details.genres.map((g) => g.name).join(", ")
     : "нет данных";
 
-  // const getCertification = (releases) => {
-  //   const countries = releases?.countries;
-  //   if (!countries) return "N/A";
-
-  //   const releaseData = countries.find((el) => el.iso_3166_1 === "RU");
-  //   return releaseData
-  //     ? `${releaseData.certification} (${releaseData.iso_3166_1})`
-  //     : "N/A";
-  // };
-
   const releaseData = details.release_date || "нет даты";
 
   const textStyle = {
     color: dark ? "black" : "white",
   };
-
-  // const saveToLocal = (item) => {
-  //   e.preventDefult();
-  //   const isDuplicate = favorite.find((el) => el.id === item.id);
-
-  //   if (!isDuplicate) {
-  //     setFavorite([...favorite, item]);
-  //   } else {
-  //     const filtered = favorite.filter((el) => el.id !== item.id);
-  //     setFavorite(filtered);
-  //   }
-  // };
 
   const isFavorite = favorite.find((el) => el.id === details?.id);
   const ratingValue = details.vote_average * 10;
@@ -96,16 +87,11 @@ const MovieDetails = () => {
     }
   };
 
-  // const retingStyle = {
-  //   "--raging-degree": `${details}deg`,
-  //   color: retingValue > 70 ? "green" : "red",
+  // const toggleTrailer = (e) => {
+  //   e.preventDefault();
+
+  //   videoRef.current?.scrollIntoView({ behavior: "smooth" });
   // };
-
-  const toggleTrailer = (e) => {
-    e.preventDefault();
-
-    videoRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
   return (
     <>
       <div
@@ -174,7 +160,6 @@ const MovieDetails = () => {
                     <a
                       href="#"
                       onClick={togglefavorite}
-                      // style={{ color: isFavorite ? "red" : "white" }}
                     >
                       <span key={isFavorite} className="icon-animate">
                         {isFavorite ? <MdBookmarkAdded /> : <FaBookmark />}
@@ -197,6 +182,27 @@ const MovieDetails = () => {
       <Actors kinoId={movieId} />
       <div ref={videoRef}>
         <Videos videosId={movieId} />
+        {isModalOpen && (
+          <div className="video-modal" onClick={() => setIsModalOpen(false)}>
+            <div
+              className="video-modal--content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span
+                className="video-modal--content__close-modal"
+                onClick={() => setIsModalOpen(false)}
+              >
+                &times;
+              </span>
+
+              <iframe
+                src={`https://www.youtube.com/embed/${videoKey}?autoplay=1`}
+                allow="autoplay; enrypted-media; allowfullscreen"
+                frameBorder="0"
+              ></iframe>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

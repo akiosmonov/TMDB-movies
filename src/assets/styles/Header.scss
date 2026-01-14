@@ -218,6 +218,7 @@ $small-mobile: 480px;
           font-weight: 900;
           color: #01d4e4;
           text-decoration: none;
+          cursor: pointer;
 
           @include media(1200px) {
             font-size: 30px;

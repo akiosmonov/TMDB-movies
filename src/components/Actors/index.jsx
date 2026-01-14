@@ -19,10 +19,6 @@ const Actors = ({ kinoId }) => {
     getActors(api_key);
   }, [kinoId, language]);
 
-  const textStyle = {
-    color: dark ? "black" : "white",
-  };
-
   return (
     <div id="actors">
       <div className="container">
@@ -30,8 +26,14 @@ const Actors = ({ kinoId }) => {
           <h1>В главных ролях</h1>
 
           <div className="actors--list">
-            {actors.slice(0, 15).map((el) => (
-              <div key={el.id} className="actors--list__block">
+            {actors.slice(0, 15).map((el, index) => (
+              <div
+                key={el.id}
+                style={{
+                  animation: `fadeInUp 1s ease forwards ${index * 0.1}s`,
+                }}
+                className="actors--list__block"
+              >
                 {el.profile_path && (
                   <Link to={`/movieDetails/actorDetails/${el.id}`}>
                     <img
@@ -41,9 +43,9 @@ const Actors = ({ kinoId }) => {
                   </Link>
                 )}
                 <div className="actors--list__block--title">
-                  <a style={textStyle}>{el.name}</a>
+                  <a>{el.name}</a>
 
-                  <p style={textStyle}>{el.character}</p>
+                  <p>{el.character}</p>
                 </div>
               </div>
             ))}
