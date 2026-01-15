@@ -10,9 +10,10 @@ $small-mobile: 480px;
 }
 
 #header {
-  padding: 30px 0;
+  padding: 25px 0;
   position: relative;
   background: rgba(3, 37, 65, 0.8);
+  backdrop-filter: blur(10px);
   position: sticky;
   z-index: 1000;
 
@@ -23,8 +24,8 @@ $small-mobile: 480px;
   .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: space-between;
 
     @include media($mobile-small) {
       display: flex;
@@ -51,6 +52,10 @@ $small-mobile: 480px;
         order: 2;
         flex-wrap: wrap;
         justify-content: center;
+      }
+      @include media($mobile) {
+        order: 2;
+        gap: 15px;
       }
 
       a {
@@ -90,20 +95,45 @@ $small-mobile: 480px;
         @include media($mobile-small) {
           font-size: 16px;
         }
+        .favorite-badge {
+          position: absolute;
+          top: -5px;
+          right: -18px;
+          background: #e50914;
+          color: white;
+          font-size: 11px;
+          font-weight: 700;
+          min-width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2px;
+          box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+
+          animation: bounceIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+          @include media($mobile-small) {
+            font-size: 10px;
+            min-width: 15px;
+            height: 15px;
+            right: -12px;
+          }
+        }
       }
 
-      .actice {
+      .active {
         color: aqua;
       }
     }
 
     &--moonSun {
-      position: absolute;
-      top: 35px;
-      right: 570px;
       color: white;
-      font-size: 30px;
+      font-size: 24px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
       transition: transform 0.3s ease;
 
       &:hover {
@@ -111,23 +141,10 @@ $small-mobile: 480px;
         filter: brightness(1.1);
       }
 
-      @include media(1200px) {
-        top: 25px;
-        right: 20px;
-        order: unset;
-      }
-
-      @include media($mobile) {
-        top: 18px;
-        right: 15px;
-      }
-
       @include media($mobile-small) {
-        top: 15px;
+        position: absolute;
+        top: 20px;
         right: 10px;
-      }
-      @include media($small-mobile) {
-        top: 15px;
       }
     }
 
@@ -209,7 +226,7 @@ $small-mobile: 480px;
           }
         }
 
-        a {
+        .search-icon {
           position: absolute;
           right: 5px;
           top: 55%;
@@ -230,10 +247,22 @@ $small-mobile: 480px;
             top: 20px;
           }
           @include media($mobile-small) {
-            right: 50px;
+            right: 40px;
+            top: 20px;
           }
         }
       }
     }
+  }
+}
+
+@keyframes bounceIN {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }

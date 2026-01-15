@@ -9,7 +9,8 @@ import { DarkContext } from "../Context";
 const Header = () => {
   const [movieName, setMovieName] = useState("");
   let nav = useNavigate();
-  const { dark, setDark, language, setLanguage } = useContext(DarkContext);
+  const { dark, setDark, language, setLanguage, favorite } =
+    useContext(DarkContext);
 
   const SearchMovie = () => {
     const trimmedName = movieName.trim();
@@ -32,6 +33,11 @@ const Header = () => {
     }
   };
 
+  const navLinks = [
+    { path: "/popular", en: "Popular", ru: "Популярные" },
+    { path: "/topRated", en: "Top Rated", ru: "Топ рейтинг" },
+  ];
+
   return (
     <div id="header">
       <div className="container">
@@ -40,27 +46,39 @@ const Header = () => {
             <NavLink to={"/"}>
               <img src={logo} alt="image" width={200} />
             </NavLink>
-            <NavLink to={"/popular"}>Popular</NavLink>
-            <NavLink to={"/topRated"}>Top Rated</NavLink>
-            <NavLink to={"/favorite"}>Favorite</NavLink>
+            {navLinks.map((link) => (
+              <NavLink key={link.path} to={link.path}>
+                {language.includes("en") || language.inclue ? link.en : link.ru}
+              </NavLink>
+            ))}
+            <NavLink to={"/favorite"}>
+              {language.includes("en") ? "Favorite" : "Избранное"}
+              {favorite.length > 0 && (
+                <span className="favorite-badge">{favorite.length}</span>
+              )}
+            </NavLink>
           </div>
           <div className="header--search">
             <Link className="header--moonSun" onClick={() => setDark(!dark)}>
               {dark ? <MdOutlineNightlightRound /> : <FaSun />}
             </Link>
             <select onChange={(e) => setLanguage(e.target.value)}>
-              <option value="en-EN">EN</option>
               <option value="ru-RU">RU</option>
+              <option value="en-EN">EN</option>
             </select>
             <div className="form">
               <input
                 onChange={intChange}
                 value={movieName}
                 type="text"
-                placeholder="Найти фильм, сериал.."
+                placeholder={
+                  language.includes("en")
+                    ? "Find a movie, series"
+                    : "Найти фильм, сериал.."
+                }
                 onKeyDown={handleKey}
               />
-              <a onClick={() => SearchMovie()}>
+              <a className="search-icon" onClick={() => SearchMovie()}>
                 <IoMdSearch />
               </a>
             </div>

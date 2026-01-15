@@ -22,7 +22,7 @@ const Hero = () => {
 
   useEffect(() => {
     HeroBackground(api_key);
-  }, []);
+  }, [language]);
 
   const handleKey = (e) => {
     if (e.key === "Enter") {
@@ -75,18 +75,30 @@ const Hero = () => {
           <div className="hero">
             <div className="hero--start">
               <div className="hero--start__tittle">
-                <h1>Добро пожаловать.</h1>
-                <h2>Миллионы фильмов, сериалов и людей. Исследуйте сейчас.</h2>
+                <h1>
+                  {language.includes("en") ? "Welcome." : "Добро пожаловать."}
+                </h1>
+                <h2>
+                  {language.includes("en")
+                    ? "Millions of movies, TV shows, and people. Explore now."
+                    : "Миллионы фильмов, сериалов и людей. Исследуйте сейчас."}
+                </h2>
               </div>
               <div className="hero--start--int">
                 <input
                   type="text"
-                  placeholder="Найти фильм, сериал, персону......"
+                  placeholder={
+                    language.includes("en")
+                      ? "Find a movie, TV series, person..."
+                      : "Найти фильм, сериал, персону..."
+                  }
                   onKeyDown={handleKey}
                   value={movieName}
                   onChange={intChange}
                 />
-                <button onClick={() => searchMovie()}>Поиск</button>
+                <button onClick={() => searchMovie()}>
+                  {language.includes("en") ? "Search" : "Поиск"}
+                </button>
               </div>
             </div>
           </div>
@@ -94,7 +106,7 @@ const Hero = () => {
       </div>
       <div id="popInHero">
         <div className="container">
-          <h3>В тренде</h3>
+          <h3>{language.includes("en") ? "Trending" : "В тренде"}</h3>
 
           <div className="popInHero">
             {popInHero?.map((el) => (

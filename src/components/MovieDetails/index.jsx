@@ -18,8 +18,10 @@ const MovieDetails = () => {
   const videoRef = useRef(null);
   const [videoKey, setVideoKey] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const [details, setDetails] = useState(null);
+
   async function getMovieDetails(key) {
     let res = await axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=${key}&language=${language}&append_to_response=videos`
@@ -27,11 +29,15 @@ const MovieDetails = () => {
     setDetails(res.data);
     console.log(res.data);
 
-    const trailer =
-      res.data.videos.results.find((v) => v.type === "Trailer") ||
-      res.data.videos.results[0];
-    if (trailer) setVideoKey(trailer.key);
-    console.log(trailer);
+    const allVideos = res.data.videos.results;
+    const trailers = allVideos.filter((v) => v.type === "Trailer");
+
+    const targetVideo =
+      trailers.find((v) => v.iso_639_1 === language.split("-")[0]) ||
+      trailers[0] ||
+      allVideos[0];
+
+    setVideoKey(targetVideo?.key || null);
   }
 
   useEffect(() => {
@@ -136,12 +142,23 @@ const MovieDetails = () => {
                         <span>%</span>
                       </h4>
                     </div>
-                    <h5>Рейтинг</h5>
+                    <h5>{language.includes("en") ? "Rating" : "Рейтинг"}</h5>
                   </div>
-                  <div className="detailsCard--detail__miniRating--trailer">
-                    <a href="#" onClick={toggleTrailer}>
+                  <div
+                    className={`detailsCard--detail__miniRating--trailer ${
+                      !videoKey ? "disabled" : ""
+                    }`}
+                  >
+                    <a
+                      href="#"
+                      onClick={
+                        videoKey ? toggleTrailer : (e) => e.preventDefault()
+                      }
+                    >
                       <FaRegCirclePlay />
-                      Воспроизвести трейлер
+                      {videoKey
+                        ? " Воспроизвести трейлер"
+                        : "Трейлер недоступен"}
                     </a>
                   </div>
                 </div>
@@ -152,15 +169,22 @@ const MovieDetails = () => {
                     </a>
                   </div>
                   <div className="detailsCard--detail__icons--Icon">
-                    <a href="#">
-                      <GoHeartFill />
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsLiked(!isLiked);
+                      }}
+                    >
+                      <span className="heart-animate">
+                        <GoHeartFill
+                          className={`heart-icon ${isLiked ? "active" : ""}`}
+                        />
+                      </span>
                     </a>
                   </div>
                   <div className="detailsCard--detail__icons--Icon">
-                    <a
-                      href="#"
-                      onClick={togglefavorite}
-                    >
+                    <a href="#" onClick={togglefavorite}>
                       <span key={isFavorite} className="icon-animate">
                         {isFavorite ? <MdBookmarkAdded /> : <FaBookmark />}
                       </span>
@@ -179,31 +203,77 @@ const MovieDetails = () => {
           </div>
         </div>
       </div>
-      <Actors kinoId={movieId} />
-      <div ref={videoRef}>
-        <Videos videosId={movieId} />
-        {isModalOpen && (
-          <div className="video-modal" onClick={() => setIsModalOpen(false)}>
-            <div
-              className="video-modal--content"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span
-                className="video-modal--content__close-modal"
-                onClick={() => setIsModalOpen(false)}
-              >
-                &times;
-              </span>
 
-              <iframe
-                src={`https://www.youtube.com/embed/${videoKey}?autoplay=1`}
-                allow="autoplay; enrypted-media; allowfullscreen"
-                frameBorder="0"
-              ></iframe>
+      <div className="details-content-wrapper">
+        <div className="container">
+          <div className="details-content">
+            <div className="left-column">
+              <Actors kinoId={movieId} />
+              <div ref={videoRef}>
+                <Videos videosId={movieId} />
+                {isModalOpen && (
+                  <div
+                    className="video-modal"
+                    onClick={() => setIsModalOpen(false)}
+                  >
+                    <div
+                      className="video-modal--content"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span
+                        className="video-modal--content__close-modal"
+                        onClick={() => setIsModalOpen(false)}
+                      >
+                        &times;
+                      </span>
+
+                      <iframe
+                        src={`https://www.youtube.com/embed/${videoKey}?autoplay=1`}
+                        allow="autoplay; encrypted-media; allowfullscreen"
+                        allowFullScreen
+                        frameBorder="0"
+                      ></iframe>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
+            <aside className="right-column">
+              <div className="info-item">
+                <strong>{language.includes("en") ? "Status" : "Статус"}</strong>
+                <p>{details.status || "-"}</p>
+              </div>
+
+              <div className="info-item">
+                <strong>
+                  {language.includes("en")
+                    ? "Original Name"
+                    : "Исходное название"}
+                </strong>
+                <p>{details.original_title?.toUpperCase() || "-"}</p>
+              </div>
+              <div className="info-item">
+                <strong>{language.includes("en") ? "Budget" : "Бюджет"}</strong>
+                <p>
+                  {details.budget > 0
+                    ? `$${details.budget.toLocaleString()}`
+                    : "—"}
+                </p>
+              </div>
+              <div className="info-item">
+                <strong>{language.includes("en") ? "Revenue" : "Сборы"}</strong>
+                <p>
+                  {details.revenue > 0
+                    ? `$${details.revenue.toLocaleString()}`
+                    : "-"}
+                </p>
+              </div>
+            </aside>
           </div>
-        )}
+        </div>
       </div>
+
+      <div className="bottom-fade"></div>
     </>
   );
 };

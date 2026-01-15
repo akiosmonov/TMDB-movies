@@ -8,9 +8,20 @@ $small-mobile: 480px;
     @content;
   }
 }
-
+@keyframes floatBackground {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(50px, 50px) scale(1.1);
+  }
+}
 #popular {
   padding: 40px 0;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
   .popular {
     display: flex;
     align-items: stretch;
@@ -20,15 +31,16 @@ $small-mobile: 480px;
     &--card {
       position: relative;
       display: flex;
-      align-self: center;
       justify-content: center;
       flex-direction: column;
       border: 1px solid rgba(0, 0, 0, 0.1);
       width: 250px;
       overflow: hidden;
       border-radius: 10px;
-      background: white;
+      border: none;
+      background-color: white;
       gap: 10px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
       @include media($small-mobile) {
         width: 100%;
         max-width: 340px;
