@@ -182,7 +182,7 @@ const MovieDetails = () => {
                     >
                       <span className="heart-animate">
                         <GoHeartFill
-                          className={`heart-icon ${isLiked ? "active" : ""}`}
+                          style={{ color: isLiked ? "red" : "white" }}
                         />
                       </span>
                     </a>

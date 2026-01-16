@@ -222,11 +222,7 @@ $small-mobile: 480px;
               color: rgba(255, 255, 255, 1);
               transform: scale(1.1);
             }
-            &:active {
-              color: #ff0040;
-              filter: drop-shadow(0 0 8px rgba(255, 0, 64, 0.5));
-              animation: popIn 0.4s;
-            }
+
           }
         }
       }
