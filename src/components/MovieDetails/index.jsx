@@ -157,8 +157,12 @@ const MovieDetails = () => {
                     >
                       <FaRegCirclePlay />
                       {videoKey
-                        ? " Воспроизвести трейлер"
-                        : "Трейлер недоступен"}
+                        ? language.includes("en")
+                          ? " Play Trailer"
+                          : " Воспроизвести трейлер"
+                        : language.includes("en")
+                        ? " Trailer unavailable"
+                        : " Трейлер недоступен"}
                     </a>
                   </div>
                 </div>

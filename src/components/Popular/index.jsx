@@ -19,14 +19,13 @@ const Popular = () => {
     getPopular(api_key);
   }, [language]);
 
-
   return (
     <div id="popular">
       <div className="container">
         <div className="popular">
-          {popular.slice(0, 16).map((el) => (
+          {popular.slice(0, 18).map((el, i) => (
             <React.Fragment key={el.id}>
-              <MovieCards el={el} key={el.id} />
+              <MovieCards el={el} key={el.id} index={i} />
             </React.Fragment>
           ))}
         </div>

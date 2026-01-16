@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const MovieCards = ({ el }) => {
+const MovieCards = ({ el, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { poster_path, title, vote_average, release_date } = el;
 
@@ -23,8 +23,13 @@ const MovieCards = ({ el }) => {
 
   if (!poster_path) return null;
 
+  const dynamicStyleCard = {
+    [ratingValue > 70 ? "--rating-degree" : "--rating-degrees"]: degreeValue,
+    animationDelay:  `${index * 0.1}s`
+  } 
+
   return (
-    <div id="popular">
+    <div id="popular" style={dynamicStyleCard}>
       <div className="popular--card">
         <div className="popular--card__img">
           <Link to={`/movieDetails/${el.id}`}>

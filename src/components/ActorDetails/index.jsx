@@ -112,8 +112,8 @@ const ActorDetails = () => {
           <div className="personInfo--item">
             <h4>Также известность как</h4>
             <div className="personInfo--item__know">
-              {also_known_as?.map((el) => (
-                <p>{el}</p>
+              {also_known_as?.map((el, index) => (
+                <p key={index}>{el}</p>
               ))}
             </div>
           </div>

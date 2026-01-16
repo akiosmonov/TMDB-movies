@@ -47,7 +47,7 @@ $small-mobile: 480px;
         background-color: rgba(0, 0, 0, 0.651);
         opacity: 0;
         transition: 0.4s ease;
-        transition: opacity 0.8 ease;
+        transition: opacity 0.8s ease;
         z-index: 1;
         pointer-events: none;
       }
@@ -215,7 +215,6 @@ $small-mobile: 480px;
             animation: popIn 0.3s ease-out;
           }
           .heart-animate {
-            color: rgba(255, 255, 255, 0.6);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
 

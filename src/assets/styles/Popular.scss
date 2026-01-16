@@ -16,6 +16,16 @@ $small-mobile: 480px;
     transform: translate(50px, 50px) scale(1.1);
   }
 }
+@keyframes heroReval {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 #popular {
   padding: 40px 0;
   position: relative;
@@ -28,6 +38,9 @@ $small-mobile: 480px;
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
+
+    animation: heroReval 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+
     &--card {
       position: relative;
       display: flex;
