@@ -55,8 +55,8 @@ const App = () => {
     <div
       className="app"
       style={{
-        background: dark ? "white" : "black",
-        color: dark ? "black" : "white",
+        background: dark ? "white" : "#0f0f0f",
+        color: dark ? "#0f0f0f" : "white",
       }}
     >
       <Header />

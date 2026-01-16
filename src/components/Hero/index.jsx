@@ -106,7 +106,7 @@ const Hero = () => {
       </div>
       <div id="popInHero">
         <div className="container">
-          <h3>{language.includes("en") ? "Trending" : "В тренде"}</h3>
+          <h3>{language.includes("en") ? "Trending Now" : "В тренде"}</h3>
 
           <div className="popInHero">
             {popInHero?.map((el) => (

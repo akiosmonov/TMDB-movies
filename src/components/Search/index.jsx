@@ -7,7 +7,7 @@ import { DarkContext } from "../Context";
 
 const Search = () => {
   const [search, setSearch] = useState([]);
-  const {language} = useContext(DarkContext)
+  const { language } = useContext(DarkContext);
 
   const { kinoName } = useParams();
 
@@ -28,9 +28,18 @@ const Search = () => {
     <div id="popular">
       <div className="container">
         <div className="popular">
-          {search.map((el) => (
-            <MovieCards el={el} key={el.id} />
-          ))}
+          {search.length > 0 ? (
+            search.map((el, i) => <MovieCards el={el} key={el.id} index={i} />)
+          ) : (
+            <div className="empty-state">
+              <h2>
+                {language === "ru-RU"
+                  ? "По вашему запросу ничего не найдено"
+                  : "No results found for your search"}
+              </h2>
+              <center><p>🧐</p></center>
+            </div>
+          )}
         </div>
       </div>
     </div>
