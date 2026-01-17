@@ -52,15 +52,14 @@ const App = () => {
     },
   ];
   return (
-    <div
-      className="app"
-      style={{
-        background: dark ? "white" : "#0f0f0f",
-        color: dark ? "#0f0f0f" : "white",
-      }}
-    >
+    <div className="app">
       <Header />
-      <Routes>
+      <Routes
+        style={{
+          background: dark ? "white" : "#0f0f0f",
+          color: dark ? "#0f0f0f" : "white",
+        }}
+      >
         {routes.map((el) => (
           <Route path={el.link} element={el.element} key={el.id}></Route>
         ))}

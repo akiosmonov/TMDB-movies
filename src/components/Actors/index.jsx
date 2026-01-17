@@ -3,13 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { api_key } from "../../API";
 import { Link } from "react-router-dom";
 import { DarkContext } from "../Context";
+import image from "../../assets/images/images.jpg";
 
 const Actors = ({ kinoId }) => {
   const [actors, setActors] = useState([]);
   const { dark, language } = useContext(DarkContext);
   const getActors = async (key) => {
     let res = await axios(
-      `https://api.themoviedb.org/3/movie/${kinoId}/credits?api_key=${key}&language=${language}`
+      `https://api.themoviedb.org/3/movie/${kinoId}/credits?api_key=${key}&language=${language}`,
     );
     let { data } = res;
     setActors(data.cast);
@@ -34,14 +35,15 @@ const Actors = ({ kinoId }) => {
                 }}
                 className="actors--list__block"
               >
-                {el.profile_path && (
                   <Link to={`/movieDetails/actorDetails/${el.id}`}>
                     <img
-                      src={`https://image.tmdb.org/t/p/w200${el.profile_path}`}
-                      alt={el.name}
+                      src={
+                        el.profile_path
+                          ? `https://image.tmdb.org/t/p/w200${el.profile_path}`
+                          : image
+                      }
                     />
                   </Link>
-                )}
                 <div className="actors--list__block--title">
                   <a>{el.name}</a>
 

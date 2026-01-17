@@ -12,7 +12,8 @@ $small-mobile: 480px;
 #header {
   padding: 25px 0;
   position: relative;
-  background: rgba(3, 37, 65, 0.8);
+  background: #04223a;
+
   backdrop-filter: blur(10px);
   position: sticky;
   z-index: 1000;
