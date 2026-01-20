@@ -1,16 +1,15 @@
-# React + Vite
+# 🎬 MovieDB — Агрегатор киноконтента (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Профессиональное SPA-приложение для поиска фильмов и просмотра трейлеров с использованием TMDB API.
 
-Currently, two official plugins are available:
+### 🛠 Стек технологий:
+* **Core:** React.js, Axios.
+* [cite_start]**Styling:** SCSS, Framer Motion (интерактивные анимации). [cite: 12]
+* [cite_start]**API:** Интеграция с TMDB API для получения актуальных данных о кино. [cite: 14]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* ### 💡 Ключевые особенности:
+* [cite_start]**Мультиязычность:** Реализована поддержка нескольких языков (RU/EN) для интерфейса и данных. [cite: 16]
+* [cite_start]**Динамический контент:** Система фильтрации трейлеров и фильмов в реальном времени. [cite: 15]
+* [cite_start]**User Experience:** Плавные переходы и анимации интерфейса с помощью Framer Motion. [cite: 12]
+* [cite_start]**Избранное:** Функционал добавления фильмов в личный список пользователя. [cite: 15]
 
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
